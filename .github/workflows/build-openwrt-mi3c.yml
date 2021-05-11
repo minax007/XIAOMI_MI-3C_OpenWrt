@@ -46,7 +46,7 @@ jobs:
       run: |
         cd openwrt
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE3 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade.bin openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade-luci.bin
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade.bin openwrt-ramips-mt76x8-xiaomi_miwifi-mi-3c-squashfs-sysupgrade-luci.bin
       
     - name: Create Release
       id: create_release
