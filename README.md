@@ -1,4 +1,4 @@
-[![Build OpenWrt](https://github.com/minax007/XIAOMI_MI-3C_OpenWrt/actions/workflows/build-openwrt.yml/badge.svg)](https://github.com/minax007/XIAOMI_MI-3C_OpenWrt/actions/workflows/build-openwrt.yml)
+[![Build OpenWrt](https://github.com/minax007/XIAOMI_MI-3C_OpenWrt/actions/workflows/build-openwrt-mi3c.yml/badge.svg)](https://github.com/minax007/XIAOMI_MI-3C_OpenWrt/actions/workflows/build-openwrt-mi3c.yml)
 [![release](https://img.shields.io/github/v/release/minax007/XIAOMI_MI-3C_OpenWrt.svg)](https://github.com/minax007/XIAOMI_MI-3C_OpenWrt/releases)
 
 # OpenWrt snapshot for Xiaomi Mi-3C (R3C) incl. LuCI
