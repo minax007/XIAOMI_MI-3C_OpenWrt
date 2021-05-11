@@ -2,8 +2,7 @@
 
 name: Build OpenWrt MI-3C
 
-on:
-  workflow_dispatch:
+on:  workflow_dispatch
 
 env:
   BOARD: "ramips"
