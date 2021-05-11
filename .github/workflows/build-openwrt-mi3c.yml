@@ -2,8 +2,14 @@
 
 name: Build OpenWrt MI-3C
 
-on:  workflow_dispatch
-
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+  
 env:
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
