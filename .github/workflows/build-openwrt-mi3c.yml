@@ -1,0 +1,69 @@
+name: Build OpenWrt MI-3C
+
+on:
+  workflow_dispatch:
+
+env:
+  BOARD: "ramips"
+  SUBTARGET: "mt76x8"
+  PROFILE: "xiaomi_miwifi-nano"
+  PACKAGES_TYPE3: "luci luci-theme-material luci-app-nlbwmon luci-app-sqm"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo mkdir -p /mnt/workdir
+        sudo chown $USER:$GROUPS /mnt/workdir
+    - name: Download imagebuilder
+      working-directory: /mnt/workdir
+      run: |
+        curl -O "https://downloads.openwrt.org/snapshots/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64.tar.xz"
+        tar xvaf openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64.tar.xz
+        ln -sf /mnt/workdir/openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64 $GITHUB_WORKSPACE/openwrt
+ 
+    - name: Download version info
+      run: |
+        curl -O "https://downloads.openwrt.org/snapshots/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/version.buildinfo"
+        echo "OPENWRT_VERSION=$(cat version.buildinfo)" >> $GITHUB_ENV
+        
+    - name: Build the image of type 3
+      id: type3
+      run: |
+        cd openwrt
+        make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE3 }}"
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade.bin openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade-luci.bin
+      
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.OPENWRT_VERSION }}
+        release_name: OpenWrt MI3C (${{ env.OPENWRT_VERSION }})
+        body: |
+          This release is based on OpenWrt snapshot ${{ env.OPENWRT_VERSION }}.
+                    
+        draft: false
+        prerelease: false
+
+    - name: Upload type3 Asset
+      id: upload-release-asset-type3
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: openwrt/openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade-luci.bin
+        asset_name: openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade-luci.bin
+        asset_content_type: application/bin
