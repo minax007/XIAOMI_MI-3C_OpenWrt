@@ -1,5 +1,3 @@
-// forked from amaumene/xiaomi_redmi-router-ac2100_openwrt_mesh 
-
 name: Build OpenWrt MI-3C
 
 on:
