@@ -55,7 +55,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ env.OPENWRT_VERSION }}
-        release_name: OpenWrt MI3C (${{ env.OPENWRT_VERSION }})
+        release_name: OpenWrt MI-3C (${{ env.OPENWRT_VERSION }})
         body: |
           This release is based on OpenWrt snapshot ${{ env.OPENWRT_VERSION }}.
                     
