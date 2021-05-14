@@ -16,12 +16,6 @@ Added features | Package names
 **LuCI Bandwidth Monitor** | luci-app-nlbwmon
 **LuCI SQM (QoS)** | luci-app-sqm
 __________________________________________________________________
-**Latest snapshot build with LuCI:**
-
-https://github.com/minax007/XIAOMI_MI-3C_OpenWrt/releases/latest/download/openwrt-ramips-mt76x8-xiaomi_mi-3c-squashfs-sysupgrade-luci.bin
-
-You can easily install the image via the GUI. 
-__________________________________________________________________
 **Official OpenWrt snapshot of MiWiFi-Nano build without LuCI:**
 
 https://firmware-selector.openwrt.org/?version=SNAPSHOT&target=ramips%2Fmt76x8&id=xiaomi_miwifi-nano
