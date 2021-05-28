@@ -12,7 +12,7 @@ env:
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
   PROFILE: "xiaomi_miwifi-nano"
-  PACKAGES_TYPE3: "luci luci-theme-material luci-app-nlbwmon luci-app-sqm"
+  PACKAGES_TYPE1: "luci luci-theme-material luci-app-nlbwmon luci-app-sqm"
 
 jobs:
   build:
@@ -42,11 +42,11 @@ jobs:
         curl -O "https://downloads.openwrt.org/snapshots/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/version.buildinfo"
         echo "OPENWRT_VERSION=$(cut -c-6 <<< cat version.buildinfo)" >> $GITHUB_ENV 
         
-    - name: Build the image of type 3
-      id: type3
+    - name: Build the image of type 1
+      id: type1
       run: |
         cd openwrt
-        make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE3 }}"
+        make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE1 }}"
         mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade.bin OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_sysupgrade.bin
       
     - name: Create Release
@@ -63,8 +63,8 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Upload type3 Asset
-      id: upload-release-asset-type3
+    - name: Upload type1 Asset
+      id: upload-release-asset-type1
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
