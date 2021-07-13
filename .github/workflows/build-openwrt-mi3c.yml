@@ -1,8 +1,8 @@
 name: Build OpenWrt MI-3C
 
 on:
-  schedule:
-    - cron: "0 2 * * *"
+#  schedule:
+#    - cron: "0 2 * * *"
   push:
     branches:
       - master
