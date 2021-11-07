@@ -1,8 +1,8 @@
 name: Build OpenWrt MI-3C
 
 on:
-#  schedule:
-#    - cron: "0 2 * * *"
+  schedule:
+    - cron: "0 2 * * *"
   push:
     branches:
       - master
@@ -11,7 +11,7 @@ on:
 env:
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
-  PROFILE: "xiaomi_miwifi-nano"
+  PROFILE: "xiaomi_miwifi-3c"
   PACKAGES_TYPE1: "luci luci-theme-material luci-app-nlbwmon luci-app-sqm"
   PACKAGES_TYPE2: "luci luci-theme-material luci-app-nlbwmon luci-app-sqm wpad-mesh-wolfssl mtr -wpad-basic-wolfssl"
   
@@ -48,14 +48,14 @@ jobs:
       run: |
         cd openwrt
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE1 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade.bin OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_sysupgrade.bin
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-3c-squashfs-sysupgrade.bin OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_sysupgrade.bin
 
     - name: Build the image of type 2
       id: type2
       run: |
         cd openwrt
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE2 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-nano-squashfs-sysupgrade.bin OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_MESH_sysupgrade.bin
+        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-3c-squashfs-sysupgrade.bin OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_MESH_sysupgrade.bin
       
     - name: Create Release
       id: create_release
