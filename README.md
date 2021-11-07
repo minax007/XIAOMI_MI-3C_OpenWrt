@@ -3,7 +3,7 @@
 
 # OpenWrt snapshot for Xiaomi Mi-3C (R3C) incl. LuCI
 
-This GitHub action is to build fresh images of latest OpenWrt snapshot for the Mi-Nano, which is compatible to Mi-3C, using imagebuilder.
+This GitHub action is to build fresh images of latest OpenWrt snapshot for the Mi-3C using imagebuilder.
 
 ![grafik](https://user-images.githubusercontent.com/67478561/117842017-d63e5f00-b27d-11eb-879b-911e93848cdb.png)
 
@@ -16,9 +16,9 @@ Added features | Package names
 **LuCI Bandwidth Monitor** | luci-app-nlbwmon
 **LuCI SQM (QoS)** | luci-app-sqm
 __________________________________________________________________
-**Official OpenWrt snapshot of MiWiFi-Nano build without LuCI:**
+**Official OpenWrt snapshot of MiWiFi-3C build without LuCI:**
 
-https://firmware-selector.openwrt.org/?version=SNAPSHOT&target=ramips%2Fmt76x8&id=xiaomi_miwifi-nano
+https://firmware-selector.openwrt.org/?version=SNAPSHOT&target=ramips%2Fmt76x8&id=xiaomi_miwifi-3c 
 __________________________________________________________________
 **Official OpenWrt snapshot download directory for MT76x8 routers, which includes the imagebuilder used in this action script:**
 
