@@ -12,8 +12,8 @@ env:
   BOARD: "ramips"
   SUBTARGET: "mt76x8"
   PROFILE: "xiaomi_miwifi-3c"
-  PACKAGES_TYPE1: "luci luci-theme-material luci-app-nlbwmon luci-app-sqm"
-  PACKAGES_TYPE2: "luci luci-theme-material luci-app-nlbwmon luci-app-sqm wpad-mesh-wolfssl mtr -wpad-basic-wolfssl"
+  PACKAGES_TYPE1: "luci luci-theme-material luci-app-adblock tcpdump luci-app-nlbwmon openssh-sftp-server luci-app-cpu-status-mini luci-app-access-control luci-app-temp-status internet-detector luci-app-internet-detector luci-compat openvpn-openssl luci-app-openvpn"
+  # PACKAGES_TYPE2: "luci luci-theme-material luci-app-nlbwmon luci-app-sqm wpad-mesh-wolfssl mtr -wpad-basic-wolfssl"
   
 jobs:
   build:
@@ -50,12 +50,12 @@ jobs:
         make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE1 }}"
         mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-3c-squashfs-sysupgrade.bin OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_sysupgrade.bin
 
-    - name: Build the image of type 2
-      id: type2
-      run: |
-        cd openwrt
-        make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE2 }}"
-        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-3c-squashfs-sysupgrade.bin OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_MESH_sysupgrade.bin
+#    - name: Build the image of type 2
+#      id: type2
+#      run: |
+#        cd openwrt
+#        make image PROFILE="${{ env.PROFILE }}" PACKAGES="${{ env.PACKAGES_TYPE2 }}"
+#        mv bin/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-ramips-mt76x8-xiaomi_miwifi-3c-squashfs-sysupgrade.bin OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_MESH_sysupgrade.bin
       
     - name: Create Release
       id: create_release
@@ -82,13 +82,13 @@ jobs:
         asset_name: OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_sysupgrade.bin
         asset_content_type: application/bin
 
-    - name: Upload type2 Asset
-      id: upload-release-asset-type2
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: openwrt/OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_MESH_sysupgrade.bin
-        asset_name: OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_MESH_sysupgrade.bin
-        asset_content_type: application/bin
+#    - name: Upload type2 Asset
+#      id: upload-release-asset-type2
+#      uses: actions/upload-release-asset@v1
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      with:
+#        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+#        asset_path: openwrt/OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_MESH_sysupgrade.bin
+#        asset_name: OpenWrt_MI-3C_${{ env.OPENWRT_VERSION }}_MESH_sysupgrade.bin
+#        asset_content_type: application/bin
