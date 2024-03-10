@@ -42,6 +42,11 @@ jobs:
       run: |
         curl -O "https://downloads.openwrt.org/snapshots/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/version.buildinfo"
         echo "OPENWRT_VERSION=$(cut -c-6 <<< cat version.buildinfo)" >> $GITHUB_ENV 
+
+    - name: Include External ipk-Packages
+      run: |
+        wget -O packages.txt https://github.com/minax007/packages/raw/main/external-package-urls.txt
+        cat packages.txt | xargs wget -P /mnt/workdir/openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64/packages
         
     - name: Build the image of type 1
       id: type1
