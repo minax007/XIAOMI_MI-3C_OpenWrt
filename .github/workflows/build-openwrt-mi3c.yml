@@ -33,8 +33,8 @@ jobs:
     - name: Download imagebuilder
       working-directory: /mnt/workdir
       run: |
-        curl -O "https://downloads.openwrt.org/snapshots/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64.tar.xz"
-        tar xvaf openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64.tar.xz
+        curl -O "https://downloads.openwrt.org/snapshots/targets/${{ env.BOARD }}/${{ env.SUBTARGET }}/openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64.tar.zst"
+        tar xvaf openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64.tar.zst
         ln -sf /mnt/workdir/openwrt-imagebuilder-${{ env.BOARD }}-${{ env.SUBTARGET }}.Linux-x86_64 $GITHUB_WORKSPACE/openwrt
  
     # Pull the first six letters from the version.buildinfo-file for naming the release e. g. "R16767"
